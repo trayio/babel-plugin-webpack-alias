@@ -1,0 +1,39 @@
+{
+  "name": "babel-plugin-webpack-alias",
+  "version": "0.0.1",
+  "description": "babel 6 plugin which allows to use webpack aliases",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "babel src -d build",
+    "test": "npm run build && (ava | tap-difflet)"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^0.11.0",
+    "babel-core": "^6.5.2",
+    "babel-eslint": "^4.1.8",
+    "babel-plugin-transform-es2015-destructuring": "^6.5.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.5.2",
+    "babel-plugin-transform-es2015-parameters": "^6.5.0",
+    "babel-plugin-transform-es2015-spread": "^6.5.2",
+    "babel-plugin-transform-export-extensions": "^6.5.0",
+    "babel-plugin-transform-object-rest-spread": "^6.5.0",
+    "babel-plugin-transform-strict-mode": "^6.5.2",
+    "babel-register": "^6.5.2",
+    "eslint": "^2.0.0"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.spec.js"
+    ],
+    "tap": true,
+    "require": [
+      "babel-register"
+    ]
+  },
+  "dependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-types": "^6.5.2"
+  }
+}
