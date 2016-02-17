@@ -6,7 +6,8 @@
   "scripts": {
     "build": "babel src -d build",
     "dev": "watch 'npm run build' src/",
-    "test": "ava | tap-difflet"
+    "test": "ava | tap-difflet",
+    "postinstall": "npm run build"
   },
   "author": "",
   "license": "ISC",
