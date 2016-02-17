@@ -8,7 +8,7 @@
     "dev": "watch 'npm run build' src/",
     "test": "ava | tap-difflet"
   },
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/trayio/babel-plugin-webpack-alias/issues",
     "email": "adrien@tray.io"
