@@ -37,11 +37,26 @@ export default function({ types: t }) {
                             aliasTo = join(process.cwd(), aliasTo);
                         }
 
-                        let regex = new RegExp(`^${aliasFrom}`);
+                        let regex = new RegExp(`^${aliasFrom}(\/|$)`);
 
                         // If the regex matches, replace by the right config
                         if(regex.test(filePath)) {
-                            path.node.arguments = [StringLiteral(filePath.replace(aliasFrom, relative(dirname(filename), aliasTo)))];
+                            let relativeFilePath = relative(dirname(filename), aliasTo);
+
+                            // In case the file path is the root of the alias, need to put a dot to avoid having an absolute path
+                            if(relativeFilePath.length === 0) {
+                                relativeFilePath = '.';
+                            }
+
+                            let requiredFilePath = filePath.replace(aliasFrom, relativeFilePath);
+
+                            // In the infortunate case of a file requiring the current directory which is the alias, we need to add
+                            // an extra slash
+                            if(requiredFilePath === '.') {
+                                requiredFilePath = './';
+                            }
+
+                            path.node.arguments = [StringLiteral(requiredFilePath)];
                             return;
                         }
                     }

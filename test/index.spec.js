@@ -33,3 +33,15 @@ test('filename require', t => {
     const expected = read('fixtures/filename.expected.js');
     t.is(actual, expected);
 });
+
+test('variable assignment', t => {
+    const actual = transformFile('fixtures/variables.js', {config: './runtime.webpack.config.js'}).code;
+    const expected = read('fixtures/variables.expected.js');
+    t.is(actual, expected);
+});
+
+test('requiring files from the root', t => {
+    const actual = transformFile('fixtures/rootfolder.js', {config: './runtime.webpack.config.js'}).code;
+    const expected = read('fixtures/rootfolder.expected.js');
+    t.is(actual, expected);
+});

@@ -5,7 +5,8 @@
   "main": "build/index.js",
   "scripts": {
     "build": "babel src -d build",
-    "test": "npm run build && (ava | tap-difflet)"
+    "dev": "watch 'npm run build' src/",
+    "test": "ava | tap-difflet"
   },
   "author": "",
   "license": "ISC",
@@ -21,7 +22,9 @@
     "babel-plugin-transform-object-rest-spread": "^6.5.0",
     "babel-plugin-transform-strict-mode": "^6.5.2",
     "babel-register": "^6.5.2",
-    "eslint": "^2.0.0"
+    "eslint": "^2.0.0",
+    "tap-difflet": "^0.4.0",
+    "watch": "^0.17.1"
   },
   "ava": {
     "files": [
