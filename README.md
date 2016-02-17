@@ -3,7 +3,7 @@
 
 This Babel 6 plugin allows you to use webpack aliases in Babel.
 
-This plugin is simply going to take the aliases defined in your webpack config and replace require paths. It is especially useful when you rely on webpack aliases to keep require paths nicer (and sometimes more consistent depending on your project configuraton) but you can't use webpack in a context, for example for unit testing.
+This plugin is simply going to take the aliases defined in your webpack config and replace require paths. It is especially useful when you rely on webpack aliases to keep require paths nicer (and sometimes more consistent depending on your project configuration) but you can't use webpack in a context, for example for unit testing.
 
 ## Example
 With the following `webpack.config.js`:
