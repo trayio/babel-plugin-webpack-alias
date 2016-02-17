@@ -2,5 +2,4 @@ src
 test
 .babelrc
 .eslintrc
-.npmrc
 publish.sh
