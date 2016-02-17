@@ -35,6 +35,13 @@
     "tap-difflet": "^0.4.0",
     "watch": "^0.17.1"
   },
+  "keywords": [
+    "babel",
+    "webpack",
+    "alias",
+    "mocha",
+    "testing"
+  ],
   "ava": {
     "files": [
       "test/**/*.spec.js"
