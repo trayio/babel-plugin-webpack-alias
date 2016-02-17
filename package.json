@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:trayio/babel-plugin-webpack-alias.git"
+    "url": "https://github.com/trayio/babel-plugin-webpack-alias.git"
   },
   "author": "Adrien Antoine <adrien@tray.io> (http://tray.io)",
   "homepage": "https://github.com/trayio/babel-plugin-webpack-alias#readme",
