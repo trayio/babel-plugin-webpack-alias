@@ -1,4 +1,7 @@
 
+[![Build Status](https://travis-ci.org/trayio/babel-plugin-webpack-alias.svg?branch=master)](https://travis-ci.org/trayio/babel-plugin-webpack-alias)
+[![Stable version](https://img.shields.io/npm/v/babel-plugin-webpack-alias.svg?style=flat)](https://www.npmjs.com/package/babel-plugin-webpack-alias)
+
 # babel-plugin-webpack-alias
 
 This Babel 6 plugin allows you to use webpack aliases in Babel.
