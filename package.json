@@ -6,6 +6,7 @@
   "scripts": {
     "build": "babel src -d build",
     "dev": "watch 'npm run build' src/",
+    "lint": "eslint src/ test/",
     "test": "ava | tap-difflet"
   },
   "license": "ISC",
