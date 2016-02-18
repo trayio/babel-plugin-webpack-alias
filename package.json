@@ -1,13 +1,13 @@
 {
   "name": "babel-plugin-webpack-alias",
-  "version": "0.1.11",
   "description": "babel 6 plugin which allows to use webpack aliases",
   "main": "build/index.js",
   "scripts": {
     "build": "babel src -d build",
     "dev": "watch 'npm run build' src/",
     "lint": "eslint src/ test/",
-    "test": "ava | tap-difflet"
+    "test": "ava",
+    "release": "semantic-release pre && npm publish && semantic-release post"
   },
   "license": "ISC",
   "bugs": {
@@ -32,8 +32,9 @@
     "babel-plugin-transform-object-rest-spread": "^6.5.0",
     "babel-plugin-transform-strict-mode": "^6.5.2",
     "babel-register": "^6.5.2",
+    "cz-conventional-changelog": "^1.1.5",
     "eslint": "^2.0.0",
-    "tap-difflet": "^0.4.0",
+    "semantic-release": "^4.3.5",
     "watch": "^0.17.1"
   },
   "keywords": [
@@ -47,7 +48,6 @@
     "files": [
       "test/**/*.spec.js"
     ],
-    "tap": true,
     "require": [
       "babel-register"
     ]
@@ -55,5 +55,10 @@
   "dependencies": {
     "babel-cli": "^6.5.1",
     "babel-types": "^6.5.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
