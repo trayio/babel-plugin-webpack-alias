@@ -45,3 +45,11 @@ test('requiring files from the root', t => {
     const expected = read('fixtures/rootfolder.expected.js');
     t.is(actual, expected);
 });
+
+
+test('using the import syntax', t => {
+    const actual = transformFile('fixtures/import.js', {config: './runtime.webpack.config.js'}).code;
+    const expected = read('fixtures/import.expected.js');
+
+    t.is(actual, expected);
+});
