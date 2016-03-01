@@ -7,7 +7,7 @@
     "dev": "watch 'npm run build' src/",
     "lint": "eslint src/ test/",
     "test": "ava",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "npm run build && semantic-release pre && npm publish && semantic-release post"
   },
   "license": "ISC",
   "bugs": {
