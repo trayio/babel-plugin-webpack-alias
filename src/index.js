@@ -1,14 +1,32 @@
 
 import { join, resolve, relative, isAbsolute, dirname } from 'path';
 import { StringLiteral } from 'babel-types';
+import findUp from 'find-up';
+
+function getConfig(configPath, findConfig) {
+    var conf;
+    if(!findConfig) {
+        // Get webpack config
+        conf = require(resolve(process.cwd(), configPath));
+    } else {
+        conf = findUp.sync(configPath);
+    }
+
+    return conf;
+}
 
 export default function({ types: t }) {
     return {
         visitor: {
-            CallExpression(path, { file: { opts: { filename: filename } }, opts: { config: configPath = './webpack.config.js' } = {} }) {
+            CallExpression(path, { file: { opts: { filename: filename } }, opts: { config: configPath = 'webpack.config.js', findConfig: findConfig = false } = {} }) {
 
                 // Get webpack config
-                const conf = require(resolve(process.cwd(), configPath));
+                const conf = getConfig(configPath, findConfig);
+
+                // If the config comes back as null, we didn't find it, so throw an exception.
+                if(conf === null) {
+                    throw new Error('Cannot find configuration file: ' + configPath);
+                }
 
                 // exit if there's no alias config
                 if(!conf.resolve || !conf.resolve.alias) {

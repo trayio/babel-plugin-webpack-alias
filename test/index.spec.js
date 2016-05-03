@@ -7,7 +7,7 @@ import { resolve } from 'path';
 function transformFile(path, configuration = { config: './runtime.webpack.config.js' }) {
     return babel.transformFileSync(resolve(__dirname, path), {
         plugins: [
-            ['../src/index.js', configuration]
+            ['../../src/index.js', configuration]
         ]
     });
 }
@@ -52,4 +52,18 @@ test('using the import syntax', t => {
     const expected = read('fixtures/import.expected.js');
 
     t.is(actual, expected);
+});
+
+test('dont throw an exception if the config is found', t => {
+    t.notThrows(() => transformFile('fixtures/basic.absolute.js', {
+        config: "runtime.webpack.config.js",
+        findConfig: true
+    }));
+});
+
+test('throw an exception when we cant find the config', t => {
+    t.throws(() => transformFile('fixtures/basic.absolute.js', {
+        config: "DoesNotExist.js",
+        findConfig: true
+    }));
 });
