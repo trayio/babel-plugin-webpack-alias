@@ -9,7 +9,7 @@ function getConfig(configPath, findConfig) {
         // Get webpack config
         conf = require(resolve(process.cwd(), configPath));
     } else {
-        conf = findUp.sync(configPath);
+        conf = require(findUp.sync(configPath));
     }
 
     return conf;
@@ -50,6 +50,7 @@ export default function({ types: t }) {
                     if(aliasConf.hasOwnProperty(aliasFrom)) {
 
                         let aliasTo = aliasConf[aliasFrom];
+
                         // If the filepath is not absolute, make it absolute
                         if(!isAbsolute(aliasTo)) {
                             aliasTo = join(process.cwd(), aliasTo);
@@ -68,7 +69,7 @@ export default function({ types: t }) {
 
                             let requiredFilePath = filePath.replace(aliasFrom, relativeFilePath);
 
-                            // In the infortunate case of a file requiring the current directory which is the alias, we need to add
+                            // In the unfortunate case of a file requiring the current directory which is the alias, we need to add
                             // an extra slash
                             if(requiredFilePath === '.') {
                                 requiredFilePath = './';
