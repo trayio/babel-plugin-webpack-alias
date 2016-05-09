@@ -1,9 +1,11 @@
 ---
-parser: babel-eslint
-
 env:
     node: true
     es6: true
+
+parserOptions:
+    ecmaVersion: 6
+    sourceType: module
 
 globals:
     document: false
