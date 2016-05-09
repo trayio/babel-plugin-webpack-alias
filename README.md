@@ -54,3 +54,20 @@ Add it as a plugin to your `.babelrc` file. You can optionally add a path to a c
 }
 ```
 In this case, the plugin will only be run when `NODE_ENV` is set to `test`.
+
+It is also possible to pass a findConfig option, and the plugin will attempt to find the nearest configuration file within the project using [find-up](https://github.com/sindresorhus/find-up). For example:
+```
+{
+   "presets":[ "react", "es2015", "stage-0" ],
+   "env": {
+    "test": {
+      "plugins": [
+        [ "babel-plugin-webpack-alias", {
+            "config": "webpack.config.test.js",
+            "findConfig": true
+          } ]
+      ]
+    }
+  }
+}
+```
