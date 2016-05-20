@@ -60,7 +60,7 @@ export default function({ types: t }) {
 
                         // If the regex matches, replace by the right config
                         if(regex.test(filePath)) {
-                            let relativeFilePath = relative(dirname(filename), aliasTo);
+                            let relativeFilePath = relative(dirname(filename), aliasTo).replace(/\\/g, '/');
 
                             // In case the file path is the root of the alias, need to put a dot to avoid having an absolute path
                             if(relativeFilePath.length === 0) {
