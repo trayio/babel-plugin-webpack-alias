@@ -23,6 +23,7 @@
   "homepage": "https://github.com/trayio/babel-plugin-webpack-alias#readme",
   "devDependencies": {
     "ava": "^0.14.0",
+    "babel-cli": "^6.5.1",
     "babel-core": "^6.6.0",
     "babel-plugin-transform-es2015-destructuring": "^6.6.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.6.0",
@@ -52,7 +53,6 @@
     ]
   },
   "dependencies": {
-    "babel-cli": "^6.5.1",
     "babel-types": "^6.5.2",
     "find-up": "^1.1.2"
   }
