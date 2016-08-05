@@ -36,12 +36,12 @@ This is an example but the plugin will output the relative path depending on the
 
 ## Install
 
-```shell
+```console
 npm install --save-dev babel-plugin-webpack-alias
 ```
 
 Add it as a plugin to your `.babelrc` file. You can optionally add a path to a config file, for example:
-```
+```json
 {
    "presets":[ "react", "es2015", "stage-0" ],
    "env": {
@@ -55,8 +55,10 @@ Add it as a plugin to your `.babelrc` file. You can optionally add a path to a c
 ```
 In this case, the plugin will only be run when `NODE_ENV` is set to `test`.
 
+## Configuration path
+
 It is also possible to pass a findConfig option, and the plugin will attempt to find the nearest configuration file within the project using [find-up](https://github.com/sindresorhus/find-up). For example:
-```
+```json
 {
    "presets":[ "react", "es2015", "stage-0" ],
    "env": {
@@ -70,4 +72,24 @@ It is also possible to pass a findConfig option, and the plugin will attempt to 
     }
   }
 }
+```
+
+You can also use environment variable to build a path to your webpack configuration file using [lodash template](https://lodash.com/docs#template), for example:
+```json
+{
+   "presets":[ "react", "es2015", "stage-0" ],
+   "env": {
+    "test": {
+      "plugins": [
+        [ "babel-plugin-webpack-alias", {
+            "config": "${PWD}/webpack.config.test.js"
+          }
+        ]
+      ]
+    }
+  }
+}
+```
+```console
+PWD=$(pwd) NODE_ENV=test ava
 ```
