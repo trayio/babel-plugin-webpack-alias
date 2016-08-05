@@ -50,16 +50,24 @@ export default function({ types: t }) {
                     if(aliasConf.hasOwnProperty(aliasFrom)) {
 
                         let aliasTo = aliasConf[aliasFrom];
-
-                        // If the filepath is not absolute, make it absolute
-                        if(!isAbsolute(aliasTo)) {
-                            aliasTo = join(process.cwd(), aliasTo);
-                        }
-
                         let regex = new RegExp(`^${aliasFrom}(\/|$)`);
 
                         // If the regex matches, replace by the right config
                         if(regex.test(filePath)) {
+
+                            // notModuleRegExp from https://github.com/webpack/enhanced-resolve/blob/master/lib/Resolver.js
+                            const notModuleRegExp = /^\.$|^\.[\\\/]|^\.\.$|^\.\.[\/\\]|^\/|^[A-Z]:[\\\/]/i;
+                            let isModule = !notModuleRegExp.test(aliasTo);
+
+                            if(isModule) {
+                                path.node.arguments = [StringLiteral(aliasTo)];
+                                return;
+                            }
+
+                            // If the filepath is not absolute, make it absolute
+                            if(!isAbsolute(aliasTo)) {
+                                aliasTo = join(process.cwd(), aliasTo);
+                            }
                             let relativeFilePath = relative(dirname(filename), aliasTo).replace(/\\/g, '/');
 
                             // In case the file path is the root of the alias, need to put a dot to avoid having an absolute path
