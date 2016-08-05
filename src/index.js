@@ -1,15 +1,19 @@
 
 import { join, resolve, relative, isAbsolute, dirname } from 'path';
 import { StringLiteral } from 'babel-types';
+import template from 'lodash.template';
 import findUp from 'find-up';
 
 function getConfig(configPath, findConfig) {
+    // Compile config using environment variables
+    const compiledConfigPath = template(configPath)(process.env);
+
     var conf;
     if(!findConfig) {
         // Get webpack config
-        conf = require(resolve(process.cwd(), configPath));
+        conf = require(resolve(process.cwd(), compiledConfigPath));
     } else {
-        conf = require(findUp.sync(configPath));
+        conf = require(findUp.sync(compiledConfigPath));
     }
 
     return conf;

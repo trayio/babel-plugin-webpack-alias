@@ -72,3 +72,14 @@ test('throw an exception when we cant find the config', t => {
         findConfig: true
     }));
 });
+
+test('use environment variables for the config path', t => {
+    const ORIGINAL_PWD = process.env.PWD;
+    process.env.PWD = __dirname;
+
+    const actual = transformFile('fixtures/import.js', {config: '${PWD}/runtime.webpack.config.js'}).code;
+    const expected = read('fixtures/import.expected.js');
+
+    t.is(actual, expected);
+    process.env.PWD = ORIGINAL_PWD;
+});
