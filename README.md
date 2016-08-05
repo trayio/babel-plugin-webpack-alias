@@ -37,7 +37,7 @@ This is an example but the plugin will output the relative path depending on the
 ## Install
 
 ```console
-npm install --save-dev babel-plugin-webpack-alias
+$ npm install --save-dev babel-plugin-webpack-alias
 ```
 
 Add it as a plugin to your `.babelrc` file. You can optionally add a path to a config file, for example:
@@ -90,6 +90,7 @@ You can also use environment variable to build a path to your webpack configurat
   }
 }
 ```
+And run with:
 ```console
-PWD=$(pwd) NODE_ENV=test ava
+$ PWD=$(pwd) NODE_ENV=test ava
 ```
