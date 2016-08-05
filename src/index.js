@@ -75,6 +75,11 @@ export default function({ types: t }) {
                                 requiredFilePath = './';
                             }
 
+                            // In the case of a file requiring a child directory of the current directory, we need to add a dot slash
+                            if (['.','/'].indexOf(requiredFilePath[0]) === -1) {
+                                requiredFilePath = './' + requiredFilePath;
+                            }
+
                             path.node.arguments = [StringLiteral(requiredFilePath)];
                             return;
                         }
