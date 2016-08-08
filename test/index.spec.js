@@ -95,3 +95,9 @@ test('use environment variables for the config path', t => {
     t.is(actual, expected);
     process.env.PWD = ORIGINAL_PWD;
 });
+
+test('works with extensions', t => {
+    const actual = transformFile('fixtures/extensions.js', {config: './extensions.config.js'}).code;
+    const expected = read('fixtures/extensions.expected.js');
+    t.is(actual, expected);
+});

@@ -1,5 +1,6 @@
 
-import { join, resolve, relative, isAbsolute, dirname } from 'path';
+import { join, resolve, relative, isAbsolute, dirname, basename } from 'path';
+import fs from 'fs';
 import { StringLiteral } from 'babel-types';
 import template from 'lodash.template';
 import some from 'lodash.some';
@@ -35,6 +36,14 @@ function getConfig(configPaths, findConfig) {
     return conf;
 }
 
+function fileExists(path) {
+    try {
+        return !fs.accessSync(path, fs.F_OK);
+    } catch (e) {
+        return false;
+    }
+}
+
 export default function({ types: t }) {
     return {
         visitor: {
@@ -58,6 +67,10 @@ export default function({ types: t }) {
 
                 // Get the webpack alias config
                 const aliasConf = conf.resolve.alias;
+                const extensionsConf =
+                    (conf.resolve.extensions && conf.resolve.extensions.length) ?
+                    conf.resolve.extensions :
+                    null;
 
                 const { callee: { name: calleeName }, arguments: args } = path.node;
 
@@ -109,6 +122,27 @@ export default function({ types: t }) {
                             // In the case of a file requiring a child directory of the current directory, we need to add a dot slash
                             if (['.','/'].indexOf(requiredFilePath[0]) === -1) {
                                 requiredFilePath = './' + requiredFilePath;
+                            }
+
+                            // In case the extension option is passed
+                            if(extensionsConf) {
+                                // Get an absolute path to the file
+                                const absoluteRequire = join(aliasTo, basename(filePath));
+
+                                let extension = null;
+                                some(extensionsConf, ext => {
+                                    if(!ext) return;
+
+                                    // If the file with this extension exists set it
+                                    if(fileExists(absoluteRequire + ext)) {
+                                        extension = ext;
+                                    }
+
+                                    return extension;
+                                });
+
+                                // Set the extension to the file path, or keep the original one
+                                requiredFilePath += extension || '';
                             }
 
                             path.node.arguments = [StringLiteral(requiredFilePath)];
