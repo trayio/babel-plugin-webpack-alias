@@ -4,10 +4,10 @@ import test from 'ava';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
-function transformFile(path, configuration = { config: './runtime.webpack.config.js' }) {
+function transformFile(path, configuration) {
     return babel.transformFileSync(resolve(__dirname, path), {
         plugins: [
-            ['../../src/index.js', configuration]
+            configuration ? ['../../src/index.js', configuration] : '../../src/index.js'
         ]
     });
 }
@@ -15,6 +15,18 @@ function transformFile(path, configuration = { config: './runtime.webpack.config
 function read(path) {
     return readFileSync(resolve(__dirname, path), 'utf8');
 }
+
+test('basic require with default webpack name', t => {
+    const actual = transformFile('fixtures/basic.absolute.js').code;
+    const expected = read('fixtures/basic.expected.js');
+    t.is(actual, expected);
+});
+
+test('basic require with es6 webpack config', t => {
+    const actual = transformFile('fixtures/basic.absolute.js', {config: './webpack.config.babel.js'}).code;
+    const expected = read('fixtures/basic.expected.js');
+    t.is(actual, expected);
+});
 
 test('basic require with the absolute resolve path', t => {
     const actual = transformFile('fixtures/basic.absolute.js', {config: './runtime.webpack.config.js'}).code;

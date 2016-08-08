@@ -55,6 +55,7 @@
   "dependencies": {
     "babel-types": "^6.5.2",
     "find-up": "^1.1.2",
+    "lodash.some": "^4.5.1",
     "lodash.template": "^4.3.0"
   }
 }

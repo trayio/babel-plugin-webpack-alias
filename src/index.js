@@ -2,18 +2,34 @@
 import { join, resolve, relative, isAbsolute, dirname } from 'path';
 import { StringLiteral } from 'babel-types';
 import template from 'lodash.template';
+import some from 'lodash.some';
 import findUp from 'find-up';
 
-function getConfig(configPath, findConfig) {
-    // Compile config using environment variables
-    const compiledConfigPath = template(configPath)(process.env);
+const DEFAULT_CONFIG_NAMES = ['webpack.config.js', 'webpack.config.babel.js'];
 
-    var conf;
-    if(!findConfig) {
-        // Get webpack config
-        conf = require(resolve(process.cwd(), compiledConfigPath));
-    } else {
-        conf = require(findUp.sync(compiledConfigPath));
+function getConfig(configPaths, findConfig) {
+    let conf = null;
+
+    // Try all config paths and return for the first found one
+    some(configPaths, (configPath) => {
+        if(!configPath) return;
+
+        // Compile config using environment variables
+        const compiledConfigPath = template(configPath)(process.env);
+
+        if(!findConfig) {
+            // Get webpack config
+            conf = require(resolve(process.cwd(), compiledConfigPath));
+        } else {
+            conf = require(findUp.sync(compiledConfigPath));
+        }
+
+        return conf;
+    });
+
+    // In the case the webpack config is an es6 config, we need to get the default
+    if (conf && conf.__esModule && conf.default) {
+        conf = conf.default;
     }
 
     return conf;
@@ -22,13 +38,16 @@ function getConfig(configPath, findConfig) {
 export default function({ types: t }) {
     return {
         visitor: {
-            CallExpression(path, { file: { opts: { filename: filename } }, opts: { config: configPath = 'webpack.config.js', findConfig: findConfig = false } = {} }) {
+            CallExpression(path, { file: { opts: { filename: filename } }, opts: { config: configPath, findConfig: findConfig = false } = {} }) {
 
                 // Get webpack config
-                const conf = getConfig(configPath, findConfig);
+                const conf = getConfig(
+                    configPath ? [configPath, ...DEFAULT_CONFIG_NAMES] : DEFAULT_CONFIG_NAMES,
+                    findConfig
+                );
 
                 // If the config comes back as null, we didn't find it, so throw an exception.
-                if(conf === null) {
+                if(!conf) {
                     throw new Error('Cannot find configuration file: ' + configPath);
                 }
 
