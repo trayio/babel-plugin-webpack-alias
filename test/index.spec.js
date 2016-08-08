@@ -1,14 +1,15 @@
 
-const babel = require('babel-core');
 import test from 'ava';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
+const babel = require('babel-core'); // eslint-disable-line import/no-commonjs
+
 function transformFile(path, configuration) {
     return babel.transformFileSync(resolve(__dirname, path), {
         plugins: [
-            configuration ? ['../../src/index.js', configuration] : '../../src/index.js'
-        ]
+            configuration ? ['../../src/index.js', configuration] : '../../src/index.js',
+        ],
     });
 }
 
@@ -74,14 +75,14 @@ test('using the import syntax', t => {
 test('dont throw an exception if the config is found', t => {
     t.notThrows(() => transformFile('fixtures/basic.absolute.js', {
         config: "runtime.webpack.config.js",
-        findConfig: true
+        findConfig: true,
     }));
 });
 
 test('throw an exception when we cant find the config', t => {
     t.throws(() => transformFile('fixtures/basic.absolute.js', {
         config: "DoesNotExist.js",
-        findConfig: true
+        findConfig: true,
     }));
 });
 

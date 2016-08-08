@@ -1,4 +1,8 @@
 ---
+plugins:
+    - import
+    - babel
+
 env:
     node: true
     es6: true
@@ -7,11 +11,9 @@ parserOptions:
     ecmaVersion: 6
     sourceType: module
 
-globals:
-    document: false
-    parentNext: true
-    __debug: false
-    _: false
+settings:
+    import/cache:
+        lifetime: ∞
 
 arrowFunctions: true
 blockBindings: true
@@ -32,7 +34,7 @@ rules:
     brace-style: [2, 1tbs, allowSingleLine: true]
     camelcase: [2, properties: never]
     comma-style: [2, last]
-    eqeqeq: 1
+    eqeqeq: 2
     guard-for-in: 2
     handle-callback-err: [2, error]
     indent: [2, 4, {SwitchCase: 1}]
@@ -81,12 +83,12 @@ rules:
     no-octal: 2
     no-path-concat: 1
     no-proto: 2
-    no-redeclare: 1
+    no-redeclare: 2
     no-regex-spaces: 2
     no-script-url: 2
     no-sequences: 2
     no-shadow-restricted-names: 2
-    no-shadow: 1
+    no-shadow: 2
     no-spaced-func: 2
     no-sparse-arrays: 2
     no-throw-literal: 2
@@ -94,7 +96,7 @@ rules:
     no-undef-init: 2
     no-undef: 2
     no-unreachable: 2
-    no-unused-expressions: 1
+    no-unused-expressions: 2
     no-unused-vars: [2, {vars: all, args: after-used}]
     no-void: 2
     no-with: 2
@@ -113,50 +115,35 @@ rules:
     use-isnan: 2
     valid-typeof: 2
     wrap-iife: 2
+    no-labels: 2
+    comma-dangle: [1, always-multiline]
+    prefer-arrow-callback: 2
+    prefer-const: [2, {destructuring: all}]
+    no-var: 2
+    prefer-template: 1
+    prefer-spread: 2
+    max-len: [2, 260]
 
-    # WARNINGS
+    # disable builtin rules that are incompatible with Babel plugin ones
+    generator-star-spacing: 0
+    object-shorthand: 0
+    arrow-parens: 0
 
-    # DISABLED
-    block-scoped-var: 0
-    comma-dangle: 0
-    complexity: 0
-    consistent-return: 0
-    consistent-this: 0
-    default-case: 0
-    dot-notation: 0
-    func-names: 0
-    func-style: 0
-    max-nested-callbacks: 0
-    new-cap: 0
-    newline-after-var: 0
-    no-console: 0
-    no-control-regex: 0
-    no-debugger: 0
-    no-eq-null: 0
-    no-inline-comments: 0
-    no-labels: 0
-    no-lone-blocks: 0
-    no-loop-func: 0
-    no-multiple-empty-lines: 0
-    no-native-reassign: 0
-    no-nested-ternary: 0
-    no-new-func: 0
-    no-process-env: 0
-    no-process-exit: 0
-    no-reserved-keys: 0
-    no-restricted-modules: 0
-    no-self-compare: 0
-    no-ternary: 0
-    no-undefined: 0
-    no-underscore-dangle: 0
-    no-use-before-define: 0
-    no-var: 0
-    no-warning-comments: 0
-    padded-blocks: 0
-    sort-vars: 0
-    space-in-brackets: 0
-    space-in-parens: 0
-    strict: 0
-    valid-jsdoc: 0
-    vars-on-top: 0
-    wrap-regex: 0
+    babel/generator-star-spacing: [2, both]
+    babel/object-shorthand: [2, always]
+    babel/arrow-parens: [2, as-needed]
+    babel/no-await-in-loop: 2
+
+    import/no-unresolved: [2, { commonjs: true }]
+    import/named: 2
+    import/default: 2
+    import/namespace: 2
+    import/export: 2
+    import/imports-first: 2
+    import/no-duplicates: 2
+    import/no-deprecated: 2
+    import/no-commonjs: 2
+    import/no-amd: 2
+    import/no-extraneous-dependencies: 2
+    import/no-named-as-default-member: 2
+    import/extensions: [2, {js: never, png: always, css: always, less: always}]

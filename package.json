@@ -22,7 +22,7 @@
   "author": "Adrien Antoine <adrien@tray.io> (http://tray.io)",
   "homepage": "https://github.com/trayio/babel-plugin-webpack-alias#readme",
   "devDependencies": {
-    "ava": "^0.15.2",
+    "ava": "^0.16.0",
     "babel-cli": "^6.5.1",
     "babel-core": "^6.6.0",
     "babel-plugin-transform-es2015-destructuring": "^6.6.0",
@@ -34,6 +34,8 @@
     "babel-plugin-transform-strict-mode": "^6.5.2",
     "babel-register": "^6.5.2",
     "eslint": "^3.2.2",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-import": "^1.12.0",
     "estraverse-fb": "^1.3.1",
     "watch": "^0.19.1"
   },

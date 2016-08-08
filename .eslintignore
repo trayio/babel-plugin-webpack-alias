@@ -1,1 +1,3 @@
 test/fixtures/
+test/*.config.js
+test/*.config.babel.js

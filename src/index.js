@@ -12,7 +12,7 @@ function getConfig(configPaths, findConfig) {
     let conf = null;
 
     // Try all config paths and return for the first found one
-    some(configPaths, (configPath) => {
+    some(configPaths, configPath => {
         if(!configPath) return;
 
         // Compile config using environment variables
@@ -47,7 +47,7 @@ function fileExists(path) {
 export default function({ types: t }) {
     return {
         visitor: {
-            CallExpression(path, { file: { opts: { filename: filename } }, opts: { config: configPath, findConfig: findConfig = false } = {} }) {
+            CallExpression(path, { file: { opts: { filename } }, opts: { config: configPath, findConfig: findConfig = false } = {} }) {
 
                 // Get webpack config
                 const conf = getConfig(
@@ -57,7 +57,7 @@ export default function({ types: t }) {
 
                 // If the config comes back as null, we didn't find it, so throw an exception.
                 if(!conf) {
-                    throw new Error('Cannot find configuration file: ' + configPath);
+                    throw new Error(`Cannot find configuration file: ${configPath}`);
                 }
 
                 // exit if there's no alias config
@@ -82,18 +82,18 @@ export default function({ types: t }) {
                 // Get the path of the StringLiteral
                 const [{ value: filePath }] = args;
 
-                for(let aliasFrom in aliasConf) {
+                for(const aliasFrom in aliasConf) {
                     if(aliasConf.hasOwnProperty(aliasFrom)) {
 
                         let aliasTo = aliasConf[aliasFrom];
-                        let regex = new RegExp(`^${aliasFrom}(\/|$)`);
+                        const regex = new RegExp(`^${aliasFrom}(\/|$)`);
 
                         // If the regex matches, replace by the right config
                         if(regex.test(filePath)) {
 
                             // notModuleRegExp from https://github.com/webpack/enhanced-resolve/blob/master/lib/Resolver.js
                             const notModuleRegExp = /^\.$|^\.[\\\/]|^\.\.$|^\.\.[\/\\]|^\/|^[A-Z]:[\\\/]/i;
-                            let isModule = !notModuleRegExp.test(aliasTo);
+                            const isModule = !notModuleRegExp.test(aliasTo);
 
                             if(isModule) {
                                 path.node.arguments = [StringLiteral(aliasTo)];
@@ -121,7 +121,7 @@ export default function({ types: t }) {
 
                             // In the case of a file requiring a child directory of the current directory, we need to add a dot slash
                             if (['.','/'].indexOf(requiredFilePath[0]) === -1) {
-                                requiredFilePath = './' + requiredFilePath;
+                                requiredFilePath = `./${requiredFilePath}`;
                             }
 
                             // In case the extension option is passed
@@ -150,7 +150,7 @@ export default function({ types: t }) {
                         }
                     }
                 }
-            }
-        }
+            },
+        },
     };
 }
