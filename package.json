@@ -23,16 +23,16 @@
   "homepage": "https://github.com/trayio/babel-plugin-webpack-alias#readme",
   "devDependencies": {
     "ava": "^0.16.0",
-    "babel-cli": "^6.5.1",
-    "babel-core": "^6.6.0",
+    "babel-cli": "^6.14.0",
+    "babel-core": "^6.14.0",
     "babel-plugin-transform-es2015-destructuring": "^6.6.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.6.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.14.0",
     "babel-plugin-transform-es2015-parameters": "^6.6.0",
     "babel-plugin-transform-es2015-spread": "^6.5.2",
     "babel-plugin-transform-export-extensions": "^6.5.0",
     "babel-plugin-transform-object-rest-spread": "^6.5.0",
     "babel-plugin-transform-strict-mode": "^6.5.2",
-    "babel-register": "^6.5.2",
+    "babel-register": "^6.14.0",
     "eslint": "^3.2.2",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^1.12.0",
@@ -55,7 +55,7 @@
     ]
   },
   "dependencies": {
-    "babel-types": "^6.5.2",
+    "babel-types": "^6.14.0",
     "find-up": "^1.1.2",
     "lodash.some": "^4.5.1",
     "lodash.template": "^4.3.0"
