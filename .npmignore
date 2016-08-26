@@ -3,3 +3,4 @@ test
 .babelrc
 .eslintrc
 .nyc_output
+coverage.lcov

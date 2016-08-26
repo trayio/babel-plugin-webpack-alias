@@ -33,7 +33,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.5.0",
     "babel-plugin-transform-strict-mode": "^6.5.2",
     "babel-register": "^6.14.0",
-    "coveralls": "^2.11.12",
+    "codecov": "^1.0.1",
     "eslint": "^3.2.2",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^1.12.0",
