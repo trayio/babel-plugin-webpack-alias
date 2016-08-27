@@ -8,6 +8,14 @@ import findUp from 'find-up';
 
 const DEFAULT_CONFIG_NAMES = ['webpack.config.js', 'webpack.config.babel.js'];
 
+function fileExists(path) {
+    try {
+        return !fs.accessSync(path, fs.F_OK);
+    } catch (e) {
+        return false;
+    }
+}
+
 function getConfig(configPaths, findConfig) {
     let conf = null;
 
@@ -18,11 +26,16 @@ function getConfig(configPaths, findConfig) {
         // Compile config using environment variables
         const compiledConfigPath = template(configPath)(process.env);
 
+        let resolvedConfigPath;
         if(!findConfig) {
             // Get webpack config
-            conf = require(resolve(process.cwd(), compiledConfigPath));
+            resolvedConfigPath = resolve(process.cwd(), compiledConfigPath);
         } else {
-            conf = require(findUp.sync(compiledConfigPath));
+            resolvedConfigPath = findUp.sync(compiledConfigPath);
+        }
+
+        if(resolvedConfigPath && fileExists(resolvedConfigPath)) {
+            conf = require(resolvedConfigPath);
         }
 
         return conf;
@@ -36,33 +49,26 @@ function getConfig(configPaths, findConfig) {
     return conf;
 }
 
-function fileExists(path) {
-    try {
-        return !fs.accessSync(path, fs.F_OK);
-    } catch (e) {
-        return false;
-    }
-}
-
 export default function({ types: t }) {
     return {
         visitor: {
             CallExpression(path, { file: { opts: { filename } }, opts: { config: configPath, findConfig: findConfig = false } = {} }) {
+                const configPaths = configPath ? [configPath, ...DEFAULT_CONFIG_NAMES] : DEFAULT_CONFIG_NAMES;
 
                 // Get webpack config
                 const conf = getConfig(
-                    configPath ? [configPath, ...DEFAULT_CONFIG_NAMES] : DEFAULT_CONFIG_NAMES,
+                    configPaths,
                     findConfig
                 );
 
                 // If the config comes back as null, we didn't find it, so throw an exception.
                 if(!conf) {
-                    throw new Error(`Cannot find configuration file: ${configPath}`);
+                    throw new Error(`Cannot find any of these configuration files: ${configPaths.join(', ')}`);
                 }
 
                 // exit if there's no alias config
-                if(!conf.resolve || !conf.resolve.alias) {
-                    return;
+                if(!conf.resolve) {
+                    throw new Error('The resolved config file doesn\'t contain a resolve configuration');
                 }
 
                 // Get the webpack alias config
@@ -120,6 +126,7 @@ export default function({ types: t }) {
                             }
 
                             // In the case of a file requiring a child directory of the current directory, we need to add a dot slash
+                            console.log(filePath, aliasFrom, relativeFilePath);
                             if (['.','/'].indexOf(requiredFilePath[0]) === -1) {
                                 requiredFilePath = `./${requiredFilePath}`;
                             }

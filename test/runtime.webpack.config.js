@@ -9,7 +9,8 @@ module.exports = {
             'my-root-folder-lib': './fixtures/',
             'path-resolve-lib': path.resolve('./assets/my-resolved-path'),
             'my-alternate-module-name': 'module-name',
-            'my-scoped-module-name': '@scoped/module-name'
+            'my-scoped-module-name': '@scoped/module-name',
+            'same-folder-lib': path.resolve(__dirname, 'fixtures/basic'),
         }
     }
 };
