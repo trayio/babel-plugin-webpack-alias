@@ -126,7 +126,6 @@ export default function({ types: t }) {
                             }
 
                             // In the case of a file requiring a child directory of the current directory, we need to add a dot slash
-                            console.log(filePath, aliasFrom, relativeFilePath);
                             if (['.','/'].indexOf(requiredFilePath[0]) === -1) {
                                 requiredFilePath = `./${requiredFilePath}`;
                             }
