@@ -110,3 +110,9 @@ test('works with libraries targeted with path.resolve', t => {
     const expected = readFixture('pathresolve/expected.js');
     t.is(actual, expected);
 });
+
+test('works with webpack configs that export an array, instead of a single object (multicompile mode)', t => {
+    const actual = transformFixture('multicompile/source.js', {config: './webpack.multicompile.js'});
+    const expected = readFixture('multicompile/expected.js');
+    t.is(actual, expected);
+});
