@@ -60,17 +60,61 @@ export default function({ types: t }) {
                     throw new Error(`Cannot find configuration file: ${configPath}`);
                 }
 
-                // exit if there's no alias config
-                if(!conf.resolve || !conf.resolve.alias) {
+                // exit if there's no alias config and the config is not an array
+                if(!(conf.resolve && conf.resolve.alias) && !Array.isArray(conf)) {
                     return;
                 }
 
                 // Get the webpack alias config
-                const aliasConf = conf.resolve.alias;
-                const extensionsConf =
-                    (conf.resolve.extensions && conf.resolve.extensions.length) ?
-                    conf.resolve.extensions :
-                    null;
+                let aliasConf;
+                let extensionsConf;
+
+                if (Array.isArray(conf)) {
+                    // the exported webpack config is an array ...
+                    // (i.e., the project is using webpack's multicompile feature) ...
+
+                    // reduce the configs to a single alias object
+                    aliasConf = conf.reduce((prev, curr) => {
+                        const next = Object.assign({}, prev);
+                        if (curr.resolve && curr.resolve.alias) {
+                            Object.assign(next, curr.resolve.alias);
+                        }
+                        return next;
+                    }, {});
+
+                    // if the object is empty, bail
+                    if (!Object.keys(aliasConf).length) {
+                        return;
+                    }
+
+                    // reduce the configs to a single extensions array
+                    extensionsConf = conf.reduce((prev, curr) => {
+                        const next = [].concat(prev);
+                        if (curr.resolve && curr.resolve.extensions && curr.resolve.extensions.length) {
+                            curr.resolve.extensions.forEach(ext => {
+                                if (next.indexOf(ext) === -1) {
+                                    next.push(ext);
+                                }
+                            });
+                        }
+                        return next;
+                    }, []);
+
+                    if (!extensionsConf.length) {
+                        extensionsConf = null;
+                    }
+                } else {
+                    // the exported webpack config is a single object...
+
+                    // use it's resolve.alias property
+                    aliasConf = conf.resolve.alias;
+
+                    // use it's resolve.extensions property, if available
+                    extensionsConf =
+                        (conf.resolve.extensions && conf.resolve.extensions.length) ?
+                        conf.resolve.extensions :
+                        null;
+                }
 
                 const { callee: { name: calleeName }, arguments: args } = path.node;
 
