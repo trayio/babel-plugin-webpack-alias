@@ -6,8 +6,11 @@
   "scripts": {
     "build": "babel src -d build",
     "dev": "watch 'npm run build' src/",
-    "lint": "eslint src/ test/",
-    "test": "nyc --cache --reporter=text ava",
+    "test": "npm run test:lint && npm run test:plugin && npm run test:ava && npm run test:mocha",
+    "test:lint": "eslint src/ test/",
+    "test:plugin": "eslint src/ test/ && nyc --cache --reporter=text ava",
+    "test:ava": "cd examples/ava; rm -rf node_modules; npm it",
+    "test:mocha": "cd examples/mocha; rm -rf node_modules; npm it",
     "prepublish": "npm run build"
   },
   "license": "ISC",

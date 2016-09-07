@@ -15,7 +15,6 @@ before_script:
   - npm prune
 
 script:
-  - npm run lint
   - npm test
 
 after_success:
