@@ -16,7 +16,7 @@ function fileExists(path) {
     }
 }
 
-function getConfig(configPaths, findConfig) {
+function getConfigPath(configPaths, findConfig) {
     let conf = null;
 
     // Try all config paths and return for the first found one
@@ -35,16 +35,11 @@ function getConfig(configPaths, findConfig) {
         }
 
         if(resolvedConfigPath && fileExists(resolvedConfigPath)) {
-            conf = require(resolvedConfigPath);
+            conf = resolvedConfigPath;
         }
 
         return conf;
     });
-
-    // In the case the webpack config is an es6 config, we need to get the default
-    if (conf && conf.__esModule && conf.default) {
-        conf = conf.default;
-    }
 
     return conf;
 }
@@ -56,14 +51,26 @@ export default function({ types: t }) {
                 const configPaths = configPath ? [configPath, ...DEFAULT_CONFIG_NAMES] : DEFAULT_CONFIG_NAMES;
 
                 // Get webpack config
-                const conf = getConfig(
+                const confPath = getConfigPath(
                     configPaths,
                     findConfig
                 );
 
                 // If the config comes back as null, we didn't find it, so throw an exception.
-                if(!conf) {
+                if(!confPath) {
                     throw new Error(`Cannot find any of these configuration files: ${configPaths.join(', ')}`);
+                }
+
+                // Because of babel-register, babel is actually run on webpack config files using themselves
+                // as config, leading to odd errors
+                if(filename === resolve(confPath)) return;
+
+                // Require the config
+                let conf = require(confPath);
+
+                // In the case the webpack config is an es6 config, we need to get the default
+                if (conf && conf.__esModule && conf.default) {
+                    conf = conf.default;
                 }
 
                 // exit if there's no alias config and the config is not an array
@@ -170,7 +177,6 @@ export default function({ types: t }) {
                             }
 
                             // In the case of a file requiring a child directory of the current directory, we need to add a dot slash
-                            console.log(filePath, aliasFrom, relativeFilePath);
                             if (['.','/'].indexOf(requiredFilePath[0]) === -1) {
                                 requiredFilePath = `./${requiredFilePath}`;
                             }

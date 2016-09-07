@@ -34,6 +34,7 @@
     "babel-plugin-transform-strict-mode": "^6.5.2",
     "babel-register": "^6.14.0",
     "codecov": "^1.0.1",
+    "cz-conventional-changelog": "^1.2.0",
     "eslint": "^3.2.2",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^1.12.0",
@@ -61,5 +62,10 @@
     "find-up": "^1.1.2",
     "lodash.some": "^4.5.1",
     "lodash.template": "^4.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
