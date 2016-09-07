@@ -7,7 +7,7 @@
     "build": "babel src -d build",
     "dev": "watch 'npm run build' src/",
     "lint": "eslint src/ test/",
-    "test": "ava",
+    "test": "nyc --cache --reporter=text ava",
     "prepublish": "npm run build"
   },
   "license": "ISC",
@@ -23,20 +23,23 @@
   "homepage": "https://github.com/trayio/babel-plugin-webpack-alias#readme",
   "devDependencies": {
     "ava": "^0.16.0",
-    "babel-cli": "^6.5.1",
-    "babel-core": "^6.6.0",
+    "babel-cli": "^6.14.0",
+    "babel-core": "^6.14.0",
     "babel-plugin-transform-es2015-destructuring": "^6.6.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.6.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.14.0",
     "babel-plugin-transform-es2015-parameters": "^6.6.0",
     "babel-plugin-transform-es2015-spread": "^6.5.2",
     "babel-plugin-transform-export-extensions": "^6.5.0",
     "babel-plugin-transform-object-rest-spread": "^6.5.0",
     "babel-plugin-transform-strict-mode": "^6.5.2",
-    "babel-register": "^6.5.2",
+    "babel-register": "^6.14.0",
+    "codecov": "^1.0.1",
+    "cz-conventional-changelog": "^1.2.0",
     "eslint": "^3.2.2",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^1.12.0",
     "estraverse-fb": "^1.3.1",
+    "nyc": "^8.1.0",
     "watch": "^0.19.1"
   },
   "keywords": [
@@ -55,9 +58,14 @@
     ]
   },
   "dependencies": {
-    "babel-types": "^6.5.2",
+    "babel-types": "^6.14.0",
     "find-up": "^1.1.2",
     "lodash.some": "^4.5.1",
     "lodash.template": "^4.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

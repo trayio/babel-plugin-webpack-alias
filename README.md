@@ -1,6 +1,9 @@
 
 [![Build Status](https://travis-ci.org/trayio/babel-plugin-webpack-alias.svg?branch=master)](https://travis-ci.org/trayio/babel-plugin-webpack-alias)
+[![codecov](https://codecov.io/gh/trayio/babel-plugin-webpack-alias/branch/master/graph/badge.svg)](https://codecov.io/gh/trayio/babel-plugin-webpack-alias)
 [![Stable version](https://img.shields.io/npm/v/babel-plugin-webpack-alias.svg?style=flat)](https://www.npmjs.com/package/babel-plugin-webpack-alias)
+[![Downloads](https://img.shields.io/npm/dm/babel-plugin-webpack-alias.svg?style=flat)](https://npm-stat.com/charts.html?package=babel-plugin-webpack-alias)
+[![Gemnasium](https://img.shields.io/gemnasium/trayio/babel-plugin-webpack-alias.svg)](https://gemnasium.com/github.com/trayio/babel-plugin-webpack-alias)
 
 # babel-plugin-webpack-alias
 

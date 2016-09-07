@@ -8,7 +8,15 @@ import findUp from 'find-up';
 
 const DEFAULT_CONFIG_NAMES = ['webpack.config.js', 'webpack.config.babel.js'];
 
-function getConfig(configPaths, findConfig) {
+function fileExists(path) {
+    try {
+        return !fs.accessSync(path, fs.F_OK);
+    } catch (e) {
+        return false;
+    }
+}
+
+function getConfigPath(configPaths, findConfig) {
     let conf = null;
 
     // Try all config paths and return for the first found one
@@ -18,51 +26,56 @@ function getConfig(configPaths, findConfig) {
         // Compile config using environment variables
         const compiledConfigPath = template(configPath)(process.env);
 
+        let resolvedConfigPath;
         if(!findConfig) {
             // Get webpack config
-            conf = require(resolve(process.cwd(), compiledConfigPath));
+            resolvedConfigPath = resolve(process.cwd(), compiledConfigPath);
         } else {
-            conf = require(findUp.sync(compiledConfigPath));
+            resolvedConfigPath = findUp.sync(compiledConfigPath);
+        }
+
+        if(resolvedConfigPath && fileExists(resolvedConfigPath)) {
+            conf = resolvedConfigPath;
         }
 
         return conf;
     });
 
-    // In the case the webpack config is an es6 config, we need to get the default
-    if (conf && conf.__esModule && conf.default) {
-        conf = conf.default;
-    }
-
     return conf;
-}
-
-function fileExists(path) {
-    try {
-        return !fs.accessSync(path, fs.F_OK);
-    } catch (e) {
-        return false;
-    }
 }
 
 export default function({ types: t }) {
     return {
         visitor: {
             CallExpression(path, { file: { opts: { filename } }, opts: { config: configPath, findConfig: findConfig = false } = {} }) {
+                const configPaths = configPath ? [configPath, ...DEFAULT_CONFIG_NAMES] : DEFAULT_CONFIG_NAMES;
 
                 // Get webpack config
-                const conf = getConfig(
-                    configPath ? [configPath, ...DEFAULT_CONFIG_NAMES] : DEFAULT_CONFIG_NAMES,
+                const confPath = getConfigPath(
+                    configPaths,
                     findConfig
                 );
 
                 // If the config comes back as null, we didn't find it, so throw an exception.
-                if(!conf) {
-                    throw new Error(`Cannot find configuration file: ${configPath}`);
+                if(!confPath) {
+                    throw new Error(`Cannot find any of these configuration files: ${configPaths.join(', ')}`);
+                }
+
+                // Because of babel-register, babel is actually run on webpack config files using themselves
+                // as config, leading to odd errors
+                if(filename === resolve(confPath)) return;
+
+                // Require the config
+                let conf = require(confPath);
+
+                // In the case the webpack config is an es6 config, we need to get the default
+                if (conf && conf.__esModule && conf.default) {
+                    conf = conf.default;
                 }
 
                 // exit if there's no alias config and the config is not an array
                 if(!(conf.resolve && conf.resolve.alias) && !Array.isArray(conf)) {
-                    return;
+                    throw new Error('The resolved config file doesn\'t contain a resolve configuration');
                 }
 
                 // Get the webpack alias config

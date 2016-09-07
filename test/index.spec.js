@@ -1,23 +1,6 @@
-
+import path from 'path';
 import test from 'ava';
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
-
-const babel = require('babel-core'); // eslint-disable-line import/no-commonjs
-
-const plugin = resolve(__dirname, '../src/index.js');
-
-function transformFixture(name, configuration) {
-    return babel.transformFileSync(resolve(__dirname, 'fixtures', name), {
-        plugins: [
-            configuration ? [plugin, configuration] : plugin,
-        ],
-    }).code;
-}
-
-function readFixture(name) {
-    return readFileSync(resolve(__dirname, 'fixtures', name), 'utf8');
-}
+import {transformFixture, readFixture} from './utils';
 
 test('basic require with default webpack name', t => {
     const actual = transformFixture('basic/absolute.js');
@@ -81,13 +64,6 @@ test('dont throw an exception if the config is found', t => {
     }));
 });
 
-test('throw an exception when we cant find the config', t => {
-    t.throws(() => transformFixture('basic/absolute.js', {
-        config: "DoesNotExist.js",
-        findConfig: true,
-    }));
-});
-
 test('use environment variables for the config path', t => {
     const ORIGINAL_PWD = process.env.PWD;
     process.env.PWD = __dirname;
@@ -111,8 +87,22 @@ test('works with libraries targeted with path.resolve', t => {
     t.is(actual, expected);
 });
 
+test('works with libraries targeted with path.resolve', t => {
+    const actual = transformFixture('pathresolve/source.js', {config: './runtime.webpack.config.js'});
+    const expected = readFixture('pathresolve/expected.js');
+    t.is(actual, expected);
+});
+
+test('should throw an error when there is no resolve config', t => {
+    t.throws(
+        () => transformFixture('basic/absolute.js', {config: 'no-resolve.config.js'}),
+        `${path.resolve(__dirname, 'fixtures/basic/absolute.js')}: The resolved config file doesn\'t contain a resolve configuration`
+    );
+});
+
 test('works with webpack configs that export an array, instead of a single object (multicompile mode)', t => {
     const actual = transformFixture('multicompile/source.js', {config: './webpack.multicompile.js'});
     const expected = readFixture('multicompile/expected.js');
     t.is(actual, expected);
 });
+
