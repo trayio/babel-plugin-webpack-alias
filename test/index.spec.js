@@ -99,3 +99,10 @@ test('should throw an error when there is no resolve config', t => {
         `${path.resolve(__dirname, 'fixtures/basic/absolute.js')}: The resolved config file doesn\'t contain a resolve configuration`
     );
 });
+
+test('works with webpack configs that export an array, instead of a single object (multicompile mode)', t => {
+    const actual = transformFixture('multicompile/source.js', {config: './webpack.multicompile.js'});
+    const expected = readFixture('multicompile/expected.js');
+    t.is(actual, expected);
+});
+
