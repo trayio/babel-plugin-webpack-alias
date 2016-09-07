@@ -1,0 +1,6 @@
+{
+    "presets": ["es2015"],
+    "plugins": [
+        ["webpack-alias", {"config": "${PWD}/webpack.config.js"}]
+    ]
+}

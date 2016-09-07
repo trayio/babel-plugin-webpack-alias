@@ -2,21 +2,24 @@ language: node_js
 
 cache:
   directories:
-    - node_modules
+  - node_modules
 
 node_js:
-  - 6
-  - 4
+- 6
+- 4
 
 before_install:
-  - npm i -g npm@latest
+- npm i -g npm@latest
 
 before_script:
-  - npm prune
+- npm prune
 
 script:
-  - npm run lint
-  - npm test
+- npm test
 
 after_success:
-    - './node_modules/.bin/nyc report --reporter=lcov > coverage.lcov && ./node_modules/.bin/codecov'
+- './node_modules/.bin/nyc report --reporter=lcov > coverage.lcov && ./node_modules/.bin/codecov'
+
+branches:
+  only:
+  - master
