@@ -1,0 +1,22 @@
+{
+  "name": "babel-plugin-webpack-alias-ava",
+  "version": "1.0.0",
+  "description": "babel-plugin-webpack-alias example with AVA",
+  "scripts": {
+    "test": "PWD=$(pwd) ava"
+  },
+  "keywords": [],
+  "author": "Adrien Antoine <adrien@tray.io> (http://tray.io)",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "babel-plugin-webpack-alias": "../..",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-register": "^6.14.0"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
+  }
+}
