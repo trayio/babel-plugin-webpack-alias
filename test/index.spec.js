@@ -106,3 +106,8 @@ test('works with webpack configs that export an array, instead of a single objec
     t.is(actual, expected);
 });
 
+test('doesnt output extensions when noOutputExtension is set to true', t => {
+    const actual = transformFixture('no-extension/source.js', {config: './extensions.config.js', noOutputExtension: true});
+    const expected = readFixture('no-extension/expected.js');
+    t.is(actual, expected);
+});

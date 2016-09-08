@@ -47,7 +47,7 @@ function getConfigPath(configPaths, findConfig) {
 export default function({ types: t }) {
     return {
         visitor: {
-            CallExpression(path, { file: { opts: { filename } }, opts: { config: configPath, findConfig: findConfig = false } = {} }) {
+            CallExpression(path, {file: { opts: { filename } }, opts: { config: configPath, findConfig: findConfig = false, noOutputExtension = false } = {} }) {
                 const configPaths = configPath ? [configPath, ...DEFAULT_CONFIG_NAMES] : DEFAULT_CONFIG_NAMES;
 
                 // Get webpack config
@@ -182,7 +182,7 @@ export default function({ types: t }) {
                             }
 
                             // In case the extension option is passed
-                            if(extensionsConf) {
+                            if(extensionsConf && !noOutputExtension) {
                                 // Get an absolute path to the file
                                 const absoluteRequire = join(aliasTo, basename(filePath));
 
