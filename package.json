@@ -5,7 +5,7 @@
   "scripts": {
     "build": "babel src -d build",
     "dev": "watch 'npm run build' src/",
-    "test": "npm run test:lint && npm run test:plugin && npm run test:ava && npm run test:mocha",
+    "test": "npm run test:lint && npm run test:plugin",
     "test:lint": "eslint src/ test/",
     "test:plugin": "eslint src/ test/ && nyc --cache --reporter=text ava",
     "test:ava": "cd examples/ava; rm -rf node_modules; npm it",
