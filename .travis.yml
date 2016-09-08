@@ -1,5 +1,5 @@
+sudo: false
 language: node_js
-
 cache:
   directories:
   - node_modules
@@ -19,6 +19,10 @@ script:
 
 after_success:
 - './node_modules/.bin/nyc report --reporter=lcov > coverage.lcov && ./node_modules/.bin/codecov'
+- 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
+- python travis_after_all.py
+- export $(cat .to_export_back) &> /dev/null
+- npm run semantic-release
 
 branches:
   only:

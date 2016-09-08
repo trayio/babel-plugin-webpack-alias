@@ -1,5 +1,4 @@
 {
-  "version": "2.0.0",
   "name": "babel-plugin-webpack-alias",
   "description": "babel 6 plugin which allows to use webpack aliases",
   "main": "build/index.js",
@@ -11,7 +10,8 @@
     "test:plugin": "eslint src/ test/ && nyc --cache --reporter=text ava",
     "test:ava": "cd examples/ava; rm -rf node_modules; npm it",
     "test:mocha": "cd examples/mocha; rm -rf node_modules; npm it",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "license": "ISC",
   "bugs": {
@@ -43,7 +43,8 @@
     "eslint-plugin-import": "^1.12.0",
     "estraverse-fb": "^1.3.1",
     "nyc": "^8.1.0",
-    "watch": "^0.19.1"
+    "watch": "^0.19.1",
+    "semantic-release": "^4.3.5"
   },
   "keywords": [
     "babel",
