@@ -96,7 +96,7 @@ test('works with libraries targeted with path.resolve', t => {
 test('should throw an error when there is no resolve config', t => {
     t.throws(
         () => transformFixture('basic/absolute.js', {config: 'no-resolve.config.js'}),
-        `${path.resolve(__dirname, 'fixtures/basic/absolute.js')}: The resolved config file doesn\'t contain a resolve configuration`
+        `${path.resolve(__dirname, 'fixtures/basic/absolute.js').split(path.sep).join('/')}: The resolved config file doesn\'t contain a resolve configuration`
     );
 });
 

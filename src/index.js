@@ -1,5 +1,5 @@
 
-import { join, resolve, relative, isAbsolute, dirname, basename } from 'path';
+import { join, resolve, relative, isAbsolute, dirname, basename, sep } from 'path';
 import fs from 'fs';
 import { StringLiteral } from 'babel-types';
 import template from 'lodash.template';
@@ -161,7 +161,7 @@ export default function({ types: t }) {
                             if(!isAbsolute(aliasTo)) {
                                 aliasTo = join(process.cwd(), aliasTo);
                             }
-                            let relativeFilePath = relative(dirname(filename), aliasTo).replace(/\\/g, '/');
+                            let relativeFilePath = relative(dirname(filename), aliasTo).split(sep).join('/');
 
                             // In case the file path is the root of the alias, need to put a dot to avoid having an absolute path
                             if(relativeFilePath.length === 0) {
