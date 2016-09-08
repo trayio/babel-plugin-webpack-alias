@@ -1,0 +1,19 @@
+environment:
+  matrix:
+    - nodejs_version: '6'
+    - nodejs_version: '4'
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install -g npm@latest || (timeout 30 && npm install -g npm@latest)
+  - set PATH=%APPDATA%\npm;%PATH%
+  - npm install || (timeout 30 && npm install)
+matrix:
+  fast_finish: true
+build: off
+version: '{build}'
+shallow_clone: true
+clone_depth: 1
+test_script:
+  - node --version
+  - npm --version
+  - npm run test:win || (timeout 30 && npm run test:win)

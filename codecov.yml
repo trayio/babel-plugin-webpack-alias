@@ -1,5 +1,2 @@
-codecov:
-  branch: master
-
 coverage:
   range: "90...100"
