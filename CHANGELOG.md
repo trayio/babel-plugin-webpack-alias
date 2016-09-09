@@ -1,0 +1,1 @@
+The changelog is available here: [GitHub releases](https://github.com/trayio/babel-plugin-webpack-alias/releases).
