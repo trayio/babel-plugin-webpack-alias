@@ -14,7 +14,7 @@
     "prepublish": "npm run build",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/trayio/babel-plugin-webpack-alias/issues",
     "email": "adrien@tray.io"
