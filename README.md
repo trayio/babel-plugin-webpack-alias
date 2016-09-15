@@ -43,7 +43,7 @@ import MyImport from '../../library-folder/folder/lib/import/MyImport';
 ```
 This is an example but the plugin will output the relative path depending on the position of the file and the alias folder.
 
-## Install
+## Installation
 
 ```console
 $ npm install --save-dev babel-plugin-webpack-alias
@@ -64,42 +64,60 @@ Add it as a plugin to your `.babelrc` file. You can optionally add a path to a c
 ```
 In this case, the plugin will only be run when `NODE_ENV` is set to `test`.
 
-## Configuration path
+## Options
 
-It is also possible to pass a findConfig option, and the plugin will attempt to find the nearest configuration file within the project using [find-up](https://github.com/sindresorhus/find-up). For example:
-```json
-{
-   "presets":[ "react", "es2015", "stage-0" ],
-   "env": {
-    "test": {
-      "plugins": [
-        [ "babel-plugin-webpack-alias", {
-            "config": "webpack.config.test.js",
-            "findConfig": true
-          } ]
-      ]
-    }
-  }
-}
-```
+- `config`(string): Path to your webpack config file.
 
-You can also use environment variable to build a path to your webpack configuration file using [lodash template](https://lodash.com/docs#template), for example:
-```json
-{
-   "presets":[ "react", "es2015", "stage-0" ],
-   "env": {
-    "test": {
-      "plugins": [
-        [ "babel-plugin-webpack-alias", {
-            "config": "${PWD}/webpack.config.test.js"
-          }
-        ]
-      ]
+    The plugin is going to look for a `webpack.config.js` file or a `webpack.config.babel.js` at the root, in case your webpack configuration file is in another location, you can use this option to provide an absolute or relative path to it. You can also use environment variable in this option, using [lodash template](https://lodash.com/docs#template), for example:
+    ```json
+    {
+       "presets":[ "react", "es2015", "stage-0" ],
+       "env": {
+        "test": {
+          "plugins": [
+            [ "babel-plugin-webpack-alias", {
+                "config": "${PWD}/webpack.config.test.js"
+              }
+            ]
+          ]
+        }
+      }
     }
-  }
-}
-```
-And run with:
-```console
-$ PWD=$(pwd) NODE_ENV=test ava
-```
+    ```
+    And run with:
+    ```console
+    $ PWD=$(pwd) NODE_ENV=test ava
+    ```
+
+- `findConfig`(boolean): Will find the nearest webpack configuration file when set to `true`.
+
+    It is possible to pass a findConfig option, and the plugin will attempt to find the nearest webpack configuration file within the project using [find-up](https://github.com/sindresorhus/find-up). For example:
+    ```json
+    {
+       "presets":[ "react", "es2015", "stage-0" ],
+       "env": {
+        "test": {
+          "plugins": [
+            [ "babel-plugin-webpack-alias", {
+                "config": "webpack.config.test.js",
+                "findConfig": true
+              } ]
+          ]
+        }
+      }
+    }
+    ```
+- `noOutputExtension`(boolean): Don't append extension at the end of filenames even when a `resolve.extensions` webpack config is set.
+
+    The normal behaviour of the `resolve.extensions` support is this one:
+    ```js
+    var MyModule = require('my-alias/src/lib/MyComponent.jsx');
+    // is converted to:
+    var MyModule = require('../../alias-folder/js/lib/MyComponent.jsx');
+    ```
+    However in particular cases you'll compile `MyComponent.jsx` to a `MyComponent.js` file so the build alias won't be able to resolve the `jsx` file. In that case you can turn `noOutputExtension` on and get:
+    ```js
+    var MyModule = require('my-alias/src/lib/MyComponent.jsx');
+    // is converted to:
+    var MyModule = require('../../alias-folder/js/lib/MyComponent');
+    ```
