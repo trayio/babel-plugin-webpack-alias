@@ -1,7 +1,7 @@
 
 # babel-plugin-webpack-alias
 
-This Babel 6 plugin allows you to use webpack aliases and most of webpack `resolve` features in Babel.
+> This Babel 6 plugin allows you to use webpack aliases and most of webpack `resolve` features in Babel.
 
 [![Travis build](https://travis-ci.org/trayio/babel-plugin-webpack-alias.svg?branch=master)](https://travis-ci.org/trayio/babel-plugin-webpack-alias)
 [![Appveyor build](https://ci.appveyor.com/api/projects/status/s5rabbll0b8vhuom/branch/master?svg=true)](https://ci.appveyor.com/project/adriantoine/babel-plugin-webpack-alias/branch/master)
