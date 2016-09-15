@@ -18,6 +18,7 @@ This plugin is simply going to take the aliases defined in your webpack config a
 If you are having issues while making this plugin work, have a look at the [examples](/examples) folder. Play with them, mix your own config in, and feel free to [open an issue](https://github.com/trayio/babel-plugin-webpack-alias/issues/new)!
 
 ## Example
+
 With the following `webpack.config.js`:
 ```js
 module.exports = {
@@ -43,6 +44,8 @@ import MyImport from '../../library-folder/folder/lib/import/MyImport';
 ```
 This is an example but the plugin will output the relative path depending on the position of the file and the alias folder.
 
+See the [examples](/examples) folder for more configuration examples.
+
 ## Installation
 
 ```console
@@ -63,6 +66,11 @@ Add it as a plugin to your `.babelrc` file. You can optionally add a path to a c
 }
 ```
 In this case, the plugin will only be run when `NODE_ENV` is set to `test`.
+
+## Supported `resolve` options
+
+- `resolve.alias`: That is the reason why this plugin has been made, see above for examples and details.
+- `resolve.extensions`: It will try to match extensions provided in the webpack configuration.
 
 ## Options
 
