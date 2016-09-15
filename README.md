@@ -1,4 +1,8 @@
 
+# babel-plugin-webpack-alias
+
+This Babel 6 plugin allows you to use webpack aliases and most of webpack `resolve` features in Babel.
+
 [![Travis build](https://travis-ci.org/trayio/babel-plugin-webpack-alias.svg?branch=master)](https://travis-ci.org/trayio/babel-plugin-webpack-alias)
 [![Appveyor build](https://ci.appveyor.com/api/projects/status/s5rabbll0b8vhuom/branch/master?svg=true)](https://ci.appveyor.com/project/adriantoine/babel-plugin-webpack-alias/branch/master)
 [![codecov](https://codecov.io/gh/trayio/babel-plugin-webpack-alias/branch/master/graph/badge.svg)](https://codecov.io/gh/trayio/babel-plugin-webpack-alias)
@@ -8,10 +12,6 @@
 [![Downloads](https://img.shields.io/npm/dm/babel-plugin-webpack-alias.svg?style=flat)](https://npm-stat.com/charts.html?package=babel-plugin-webpack-alias)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-
-# babel-plugin-webpack-alias
-
-This Babel 6 plugin allows you to use webpack aliases in Babel.
 
 This plugin is simply going to take the aliases defined in your webpack config and replace require paths. It is especially useful when you rely on webpack aliases to keep require paths nicer (and sometimes more consistent depending on your project configuration) but you can't use webpack in a context, for example for unit testing.
 
