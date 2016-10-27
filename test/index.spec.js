@@ -100,6 +100,10 @@ test('should throw an error when there is no resolve config', t => {
     );
 });
 
+test('should ignore empty object', t => {
+    t.notThrows(() => transformFixture('basic/absolute.js', {config: 'empty-object.config.js'}));
+});
+
 test('works with webpack configs that export an array, instead of a single object (multicompile mode)', t => {
     const actual = transformFixture('multicompile/source.js', {config: './webpack.multicompile.js'});
     const expected = readFixture('multicompile/expected.js');

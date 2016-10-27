@@ -1,1 +1,6 @@
-module.exports = {};
+// incomplete webpack config
+module.exports = {
+	output: {
+
+	}
+};
