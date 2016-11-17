@@ -68,6 +68,11 @@ export default function({ types: t }) {
                 // Require the config
                 let conf = require(confPath);
 
+                // if the object is empty, we might be in a dependency of the config - bail without warning
+                if (!Object.keys(conf).length) {
+                    return;
+                }
+
                 // In the case the webpack config is an es6 config, we need to get the default
                 if (conf && conf.__esModule && conf.default) {
                     conf = conf.default;
