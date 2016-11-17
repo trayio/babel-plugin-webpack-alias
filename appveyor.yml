@@ -17,3 +17,7 @@ test_script:
   - node --version
   - npm --version
   - npm run test:win || (timeout 30 && npm run test:win)
+branches:
+  only:
+  - master
+  - /^greenkeeper-.*$/
