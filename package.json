@@ -27,7 +27,7 @@
   "author": "Adrien Antoine <adrien@tray.io> (http://tray.io)",
   "homepage": "https://github.com/trayio/babel-plugin-webpack-alias#readme",
   "devDependencies": {
-    "ava": "^0.16.0",
+    "ava": "^0.18.0",
     "babel-cli": "^6.14.0",
     "babel-core": "^6.14.0",
     "babel-plugin-transform-es2015-destructuring": "^6.9.0",
