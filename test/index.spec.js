@@ -115,3 +115,9 @@ test('doesnt output extensions when noOutputExtension is set to true', t => {
     const expected = readFixture('no-extension/expected.js');
     t.is(actual, expected);
 });
+
+test('works with RegExp special chars in alias', t => {
+    const actual = transformFixture('special-chars/source.js', {config: './special-chars.config.js', noOutputExtension: true});
+    const expected = readFixture('special-chars/expected.js');
+    t.is(actual, expected);
+});
