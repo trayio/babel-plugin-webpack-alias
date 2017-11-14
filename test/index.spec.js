@@ -105,7 +105,7 @@ test('should ignore empty object', t => {
 });
 
 test('works with webpack configs that export an array, instead of a single object (multicompile mode)', t => {
-    const actual = transformFixture('multicompile/source.js', {config: './webpack.multicompile.js'});
+    const actual = transformFixture('multicompile/source.js', {config: './webpack.multicompile.config.js'});
     const expected = readFixture('multicompile/expected.js');
     t.is(actual, expected);
 });
@@ -113,5 +113,11 @@ test('works with webpack configs that export an array, instead of a single objec
 test('doesnt output extensions when noOutputExtension is set to true', t => {
     const actual = transformFixture('no-extension/source.js', {config: './extensions.config.js', noOutputExtension: true});
     const expected = readFixture('no-extension/expected.js');
+    t.is(actual, expected);
+});
+
+test('works with webpack configs that export function', t => {
+    const actual = transformFixture('basic/absolute.js', {config: './webpack.function.config.js'});
+    const expected = readFixture('basic/expected.js');
     t.is(actual, expected);
 });

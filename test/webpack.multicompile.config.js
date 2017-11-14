@@ -1,7 +1,6 @@
 
-var path = require('path'); // eslint-disable-line no-var, import/no-commonjs
+var path = require('path');
 
-// eslint-disable-next-line import/no-commonjs
 module.exports = [{
     resolve: {
         alias: {
