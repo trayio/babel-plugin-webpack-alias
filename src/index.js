@@ -68,6 +68,11 @@ export default function({ types: t }) {
                 // Require the config
                 let conf = require(confPath);
 
+                // if the configuration expots a function, invoke it
+                if (typeof conf === 'function') {
+                    conf = conf();
+                }
+
                 // if the object is empty, we might be in a dependency of the config - bail without warning
                 if (!Object.keys(conf).length) {
                     return;
