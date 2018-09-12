@@ -150,8 +150,8 @@ export default function({ types: t }) {
                         let aliasTo = aliasConf[aliasFrom];
                         // const regex = new RegExp(`^${aliasFrom}(\/|$)`);
 
-                        const end = filePath.indexOf('/') === -1 ? filePath.length : filePath.indexOf('/')
-                        const aliasPrefix = filePath.substr(0, end)
+                        const end = filePath.indexOf('/') === -1 ? filePath.length : filePath.indexOf('/');
+                        const aliasPrefix = filePath.substr(0, end);
                         // If the regex matches, replace by the right config
                         if(aliasFrom === aliasPrefix) {
 
