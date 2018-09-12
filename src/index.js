@@ -148,10 +148,12 @@ export default function({ types: t }) {
                     if(aliasConf.hasOwnProperty(aliasFrom)) {
 
                         let aliasTo = aliasConf[aliasFrom];
-                        const regex = new RegExp(`^${aliasFrom}(\/|$)`);
+                        // const regex = new RegExp(`^${aliasFrom}(\/|$)`);
 
+                        const end = filePath.indexOf('/') === -1 ? filePath.length : filePath.indexOf('/')
+                        const aliasPrefix = filePath.substr(0, end)
                         // If the regex matches, replace by the right config
-                        if(regex.test(filePath)) {
+                        if(aliasFrom === aliasPrefix) {
 
                             // notModuleRegExp from https://github.com/webpack/enhanced-resolve/blob/master/lib/Resolver.js
                             const notModuleRegExp = /^\.$|^\.[\\\/]|^\.\.$|^\.\.[\/\\]|^\/|^[A-Z]:[\\\/]/i;
