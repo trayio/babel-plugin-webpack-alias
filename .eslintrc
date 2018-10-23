@@ -107,14 +107,10 @@
         "prefer-spread": 2,
         "max-len": [2, 260],
 
-        "generator-star-spacing": 0,
-        "object-shorthand": 0,
-        "arrow-parens": 0,
-
-        "babel/generator-star-spacing": [2, "both"],
-        "babel/object-shorthand": [2, "always"],
-        "babel/arrow-parens": [2, "as-needed"],
-        "babel/no-await-in-loop": 2,
+        "generator-star-spacing": [2, "both"],
+        "object-shorthand": [2, "always"],
+        "arrow-parens": [2, "as-needed"],
+        "no-await-in-loop": 2,
 
         "import/no-unresolved": [2, {"commonjs": true}],
         "import/named": 2,
