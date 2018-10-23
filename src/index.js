@@ -130,8 +130,8 @@ export default function({ types: t }) {
                     // use it's resolve.extensions property, if available
                     extensionsConf =
                         (conf.resolve.extensions && conf.resolve.extensions.length) ?
-                        conf.resolve.extensions :
-                        null;
+                            conf.resolve.extensions :
+                            null;
                 }
 
                 const { callee: { name: calleeName }, arguments: args } = path.node;

@@ -1,6 +1,5 @@
-'use strict';
+"use strict";
 
-require('../required/myfile');
-require('../required/doesntExist');
+require("../required/myfile");
 
-// Rest of the file
+require("../required/doesntExist"); // Rest of the file

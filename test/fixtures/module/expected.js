@@ -1,6 +1,5 @@
-'use strict';
+"use strict";
 
-require('module-name');
-require('@scoped/module-name');
+require("module-name");
 
-// Rest of the file
+require("@scoped/module-name"); // Rest of the file

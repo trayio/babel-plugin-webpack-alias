@@ -1,11 +1,13 @@
-'use strict';
+"use strict";
 
-require('../this/is/a.js');
-require('../b.less');
-require('../and/a/file.css');
+require("../../../fixtures/this/is/a.js");
 
-var test = require('../this/is/a.js');
-var test2 = require('..');
-var test3 = require('my-root-folder-lib-test/and/a/file.css');
+require("../../../fixtures/b.less");
 
-// Rest of the file
+require("../../../fixtures/and/a/file.css");
+
+var test = require("../../../fixtures/this/is/a.js");
+
+var test2 = require("../../../fixtures");
+
+var test3 = require('my-root-folder-lib-test/and/a/file.css'); // Rest of the file
