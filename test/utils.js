@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
-const babel = require('babel-core'); // eslint-disable-line import/no-commonjs
+const babel = require('@babel/core'); // eslint-disable-line import/no-commonjs
 
 const plugin = resolve(__dirname, '../src/index.js');
 

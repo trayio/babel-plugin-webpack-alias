@@ -1,4 +1,5 @@
----
-
-rules:
-    quotes: 0
+{
+    "rules": {
+        "quotes": 0
+    }
+}

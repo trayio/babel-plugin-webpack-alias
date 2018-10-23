@@ -1,7 +1,7 @@
 
 import { join, resolve, relative, isAbsolute, dirname, basename, sep } from 'path';
 import fs from 'fs';
-import { StringLiteral } from 'babel-types';
+import { StringLiteral } from '@babel/types';
 import template from 'lodash.template';
 import some from 'lodash.some';
 import findUp from 'find-up';
